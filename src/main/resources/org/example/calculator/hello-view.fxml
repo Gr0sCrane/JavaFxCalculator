@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Background?>
+<?import javafx.scene.layout.GridPane?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.calculator.HelloController">
     <padding>
@@ -13,6 +13,10 @@
     </padding>
 
     <Label fx:id="welcomeText"/>
+    <GridPane fx:id="pane"/>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
     <Button text="Bouton special" onAction="#onHelloButtonClick"/>
-    <Button text="Generate button" onAction="#createButton"/>
+    <Button fx:id="GenerateBtn" text="Generate button" onAction="#createButton"/>
 </VBox>
