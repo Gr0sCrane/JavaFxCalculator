@@ -1,0 +1,20 @@
+#displayLabel {
+    -fx-border-color: black;
+    -fx-alignment: center;
+    -fx-content-display: right;
+    -fx-max-width: 200px;
+    -fx-max-height: 450;
+    -fx-min-height: 100;
+    -fx-font-size: xx-large;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-border-color: black;
+    -fx-background-color: lightgray;
+}
+
+.button:armed {
+    -fx-border-color: gray;
+    -fx-background-color: gray;
+}
