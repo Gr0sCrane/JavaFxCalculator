@@ -8,15 +8,20 @@
 <?import javafx.scene.layout.GridPane?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.calculator.HelloController">
+    <Label fx:id="displayLabel" style="-border-color: black; -fx-background-color: gray"/>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
+    <!--
     <Label fx:id="welcomeText"/>
-    <GridPane fx:id="pane"/>
+     -->
+    <GridPane fx:id="pane" alignment="CENTER"/>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
+    <!--
     <Button text="Bouton special" onAction="#onHelloButtonClick"/>
+    -->
     <Button fx:id="GenerateBtn" text="Generate button" onAction="#createButton"/>
 </VBox>

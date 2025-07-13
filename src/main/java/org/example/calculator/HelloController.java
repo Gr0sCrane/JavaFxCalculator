@@ -8,26 +8,26 @@ import javafx.scene.layout.GridPane;
 public class HelloController {
     @FXML
     private Label welcomeText;
-    private String[] chars = {"+/-","0",",","=","1","2","3","+","4","5","6","-","7","8","9","x","/"};
-    String var = "5";
+    private String[] chars = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "x",
+            "1", "2", "3", "-",
+            "+/-", "0", "=", "+"
+    };
     @FXML
     GridPane pane = new GridPane();
-
-
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText(var);
-    }
+    private void createButton() {
+        int columns = 4;
 
-    @FXML
-    protected void createButton() {
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                Button button = new Button();
-                button.setText(chars[i]);
-                pane.add(button, i, j);
-            }
+        for (int i = 0; i < chars.length; i++) {
+            Button button = new Button(chars[i]);
+
+            int col = i % columns;
+            int row = i / columns;
+
+            pane.add(button, col, row);
+            button.setMinSize(50, 50);
         }
-        System.out.println("Button created");
     }
 }
