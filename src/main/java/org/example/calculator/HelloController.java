@@ -70,6 +70,8 @@ public class HelloController {
             numbers.clear();
             resultStack.clear();
             resultLabel.setText("");
+        } else if (i == 12){
+            displayLabel.setText("-" + displayLabel.getText());
         }
         else if (i == 14) {
             if (!displayLabel.getText().isEmpty()) {
@@ -95,7 +97,7 @@ public class HelloController {
                 displayLabel.setText(retenue);
             }
         }
-        else if (i != 3 && i != 7 && i != 11 && i != 12 && i != 15){
+        else if (i != 3 && i != 7 && i != 11 && i != 15){
             displayLabel.setText(displayLabel.getText() + button.getText());
         } else {
         operation(op);
