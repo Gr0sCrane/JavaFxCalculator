@@ -59,7 +59,7 @@ public class HelloController {
         3 => /  | 12 => +/-
         7 => x  | 14 => =
         11 => - | 15 => +
-        16 => C |
+        16 => C | 17 => R
         ---------------------
          */
         String op = button.getText();
@@ -89,6 +89,11 @@ public class HelloController {
             operatorLabel.setText("");
             operator[0] = null;
             numbers.clear();
+        } else if (i == 17){
+            if (!resultStack.isEmpty()) {
+                String retenue = resultStack.pop().toString();
+                displayLabel.setText(retenue);
+            }
         }
         else if (i != 3 && i != 7 && i != 11 && i != 12 && i != 15){
             displayLabel.setText(displayLabel.getText() + button.getText());
@@ -147,7 +152,6 @@ public class HelloController {
                 default:
                     break;
         }
-        System.out.println("Number stack: " + numbers.toString());
         System.out.println("Result stack: " + resultStack.toString());
     }
 
