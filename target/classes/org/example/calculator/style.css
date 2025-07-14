@@ -1,3 +1,4 @@
+
 #displayLabel {
     -fx-border-color: black;
     -fx-alignment: center;
@@ -5,8 +6,15 @@
     -fx-max-width: 200px;
     -fx-max-height: 450;
     -fx-min-height: 100;
-    -fx-font-size: xx-large;
+    -fx-font-size: 42;
     -fx-font-weight: bold;
+    -fx-font-family: 'digital-7';
+}
+
+#operatorLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-content-display: right;
 }
 
 .button:hover {
