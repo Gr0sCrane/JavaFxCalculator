@@ -5,24 +5,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class HelloController {
     @FXML
     private Label displayLabel;
     @FXML
     private Label operatorLabel;
+    @FXML
+    private Label resultLabel;
     private boolean operatorchoiced = false;
     private String[] operator = new String[1];
-    private List<String> numbers = new ArrayList<>();
+    private Stack<String> numbers = new Stack<>();
+    private Stack<Double> resultStack = new Stack<>();
+
     private final String[] chars = {
             "7", "8", "9", "/",
             "4", "5", "6", "x",
             "1", "2", "3", "-",
-            "+/-", "0", "=", "+","C"
+            "+/-", "0", "=", "+","C","R"
     };
+
     @FXML
     GridPane pane = new GridPane();
 
@@ -51,35 +54,57 @@ public class HelloController {
 
     void update(Button button,int i) {
         /*
+        from chars[]
+        ---------------------
         3 => /  | 12 => +/-
         7 => x  | 14 => =
         11 => - | 15 => +
         16 => C |
+        ---------------------
          */
+        String op = button.getText();
+
         if (i == 16){
             displayLabel.setText("");
+            operatorLabel.setText("");
+            numbers.clear();
+            resultStack.clear();
+            resultLabel.setText("");
         }
-        else if (i != 3 && i != 7 && i != 11 && i != 12 && i != 14 && i != 15){
+        else if (i == 14) {
+            if (!displayLabel.getText().isEmpty()) {
+                numbers.push(displayLabel.getText());
+            }
+
+            if (numbers.size() < 2 || operator[0] == null) {
+                return;
+            }
+
+            selectCalc(operator[0]);
+
+            if (!resultStack.isEmpty()) {
+                resultLabel.setText(String.valueOf(resultStack.peek()));
+            }
+
+            operatorLabel.setText("");
+            operator[0] = null;
+            numbers.clear();
+        }
+        else if (i != 3 && i != 7 && i != 11 && i != 12 && i != 15){
             displayLabel.setText(displayLabel.getText() + button.getText());
         } else {
-        String op = button.getText();
         operation(op);
         }
-        if (operatorchoiced) {
-            numbers.add(displayLabel.getText());
-            displayLabel.setText("");
-            operatorchoiced = false;
-            operatorLabel.setDisable(true);
-        }
-        System.out.println(numbers.toString());
     }
 
     void operation(String op) {
         switch (op){
             case "+", "/", "x", "-":
+                numbers.push(displayLabel.getText());
                 operator[0] = op;
                 operatorLabel.setText(op);
                 operatorchoiced = true;
+                displayLabel.setText("");
                 break;
             default:
                 break;
@@ -91,5 +116,42 @@ public class HelloController {
         Font.loadFont(getClass().getResource("/font/digital-7.ttf").toExternalForm(), 12);
 
         init();
+    }
+
+    public void selectCalc(String operator){
+        if (numbers.size() <= 1) {
+            throw new IllegalArgumentException();
+        }
+        String nbr1 = numbers.pop();
+        String nbr2 = numbers.pop();
+        double nbr1_conv = convertStringToNumber(nbr1);
+        double nbr2_conv = convertStringToNumber(nbr2);
+
+        switch (operator){
+            case "+":
+                double add_result = Operations.addition(nbr2_conv,nbr1_conv);
+                resultStack.addFirst(add_result);
+                break;
+            case "-":
+                double sub_result = Operations.subtract(nbr2_conv,nbr1_conv);
+                resultStack.addFirst(sub_result);
+                break;
+            case "x":
+                double mov_result = Operations.multiply(nbr2_conv,nbr1_conv);
+                resultStack.addFirst(mov_result);
+                break;
+            case "/":
+                double div_result = Operations.divide(nbr2_conv,nbr1_conv);
+                resultStack.addFirst(div_result);
+                break;
+                default:
+                    break;
+        }
+        System.out.println("Number stack: " + numbers.toString());
+        System.out.println("Result stack: " + resultStack.toString());
+    }
+
+    public double convertStringToNumber(String number) {
+        return Double.parseDouble(number);
     }
 }
